@@ -1,0 +1,336 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  min-height: 100vh;
+  background-color: #000;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+  outline: none;
+}
+
+header {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  min-height: 100vh;
+  z-index: 1;
+  padding: 3% 5%;
+}
+@media screen and (max-width: 1430px) {
+  header {
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 768px) {
+  header {
+    justify-content: flex-start;
+  }
+}
+.menu {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  font-size: 3em;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 100%;
+}
+@media screen and (max-width: 1430px) {
+  .menu {
+    padding-left: 20vw;
+    font-size: 3.5em;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 768px) {
+  .menu {
+    padding-left: 10%;
+  }
+}
+@media screen and (min-width: 1600px) { 
+  .menu {
+    font-size: 3.5em;
+  }
+}
+.menu .menu__item {
+  color: #fff;
+  line-height: 1.25;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-left: 6px;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  margin: 0 5% 0 0;
+}
+.menu .menu__item span {
+  transition: all 0.2s ease-in-out;
+}
+.menu .menu__item:before {
+  content: "";
+  width: 70%;
+  height: 33%;
+  background: linear-gradient(45deg, #f19872, #e86c9a);
+  position: absolute;
+  left: 2px;
+  bottom: 4%;
+  z-index: -1;
+  opacity: 1;
+  transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1), width 1s cubic-bezier(0.2, 1, 0.3, 1) 0.7s, opacity 0.8s cubic-bezier(0.2, 1, 0.3, 1) 0.2s;
+}
+.menu .menu__item:nth-child(2)::before {
+  background: linear-gradient(45deg, #0947db, #07d89d);
+}
+.menu .menu__item:nth-child(3)::before {
+  background: linear-gradient(45deg, #ee2d29, #f8ae2c);
+}
+.menu .menu__item:nth-child(4)::before {
+  background: linear-gradient(45deg, #3a3d98, #6f22b9);
+}
+.menu .menu__item:nth-child(5)::before {
+  background: linear-gradient(45deg, #9d316e, #de2d3e);
+}
+.menu .menu__item:nth-child(6)::before {
+  background: linear-gradient(45deg, #00ac53, #23c3e0);
+}
+.menu .menu__item:hover::before {
+  height: 6%;
+  transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+}
+.menu.gone .menu__item:before {
+  width: 0;
+  opacity: 0;
+}
+
+.content {
+  position: absolute;
+  z-index: 1001;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: none;
+}
+.content .content__inner {
+  text-align: center;
+  padding: 100px 15%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.content .content__inner .content__title {
+  font-size: 4vw;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+}
+
+.content__p {
+  margin-top: 40px;
+  font-size: 2vw;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+}
+
+.content__inner .skills {
+  margin-top: 30px;
+}
+
+.content__inner .skills .skill {
+  margin-bottom: 20px;
+}
+
+.content__inner .skills .skill-title {
+  font-size: 1.2em;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+}
+
+.contact-link {
+  font-size: 1.25em;
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #f19872; /* Цвет при наведении */
+}
+
+.content__subtitle {
+  font-size: 1.25em;
+  font-weight: 400;
+  color: #ededed;
+  text-align: center;
+}
+
+
+.content__inner .skills .progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  margin-top: 5px;
+  overflow: hidden; /* Это необходимо для аккуратного отображения прогресса */
+}
+
+.content__inner .skills .progress {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #d4d4d4, #ffffff);
+  width: 0; /* Изначально ширина равна 0 */
+  animation: progressAnimation 2s ease-in-out forwards; /* Добавление анимации */
+}
+
+/* Анимация для прогресса */
+@keyframes progressAnimation {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: var(--progress-width); /* Используем переменную для каждого прогресса */
+  }
+}
+
+/* Настройка индивидуальных прогрессов */
+.content__inner .skills .progress[data-progress="90"] {
+  --progress-width: 90%;
+}
+
+.content__inner .skills .progress[data-progress="85"] {
+  --progress-width: 85%;
+}
+
+.content__inner .skills .progress[data-progress="80"] {
+  --progress-width: 80%;
+}
+
+.content__inner .skills .progress[data-progress="75"] {
+  --progress-width: 75%;
+}
+
+.content__inner .skills .progress[data-progress="70"] {
+  --progress-width: 70%;
+}
+
+.content__inner .skills .progress[data-progress="65"] {
+  --progress-width: 65%;
+}
+
+.content__inner .skills .progress[data-progress="80"] {
+  --progress-width: 80%;
+}
+
+.content__sub p {
+  font-size: 1rem;
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content .content__inner .content__title span {
+  transition: all 0.2s ease-in-out;
+}
+.content .content__inner .content__sub {
+  display: none;
+  margin-top: 30px;
+}
+.content .content__inner .content__sub .content__subtitle {
+  text-align: center;
+  font-size: 1.25em;
+  font-weight: 400;
+  color: #ededed;
+}
+.content .content-close {
+  position: absolute;
+  top: 25px;
+  left: 40px;
+  color: #fff;
+  border: 0;
+  border-radius: 90% 70% 88% 69%;
+  padding: 10px 15px;
+  height: 80px;
+  width: 70px;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 3px 0 9px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: none;
+  transition: box-shadow 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+}
+.content .content-close:focus {
+  outline: 0;
+}
+.content .content-close:hover {
+  box-shadow: 0 0 0 7px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+.scene .blob-1 path {
+  fill: url(#gradient-1);
+}
+.scene .blob-2 path {
+  fill: url(#gradient-2);
+}
+.scene .blob-3 path {
+  fill: url(#gradient-3);
+}
+.scene .blob-4 path {
+  fill: url(#gradient-4);
+}
+.scene .blob-5 path {
+  fill: url(#gradient-5);
+}
+.scene .blob-6 path {
+  fill: url(#gradient-6);
+}
+.scene path:nth-of-type(1) {
+  fill-opacity: 0.1;
+}
+.scene path:nth-of-type(2) {
+  fill-opacity: 0.2;
+}
+.scene path:nth-of-type(3) {
+  fill-opacity: 0.3;
+}
+.scene path:nth-of-type(4) {
+  fill-opacity: 0.4;
+}
+.scene path:nth-of-type(5) {
+  fill-opacity: 0.5;
+}
+.scene path:nth-of-type(6) {
+  fill-opacity: 0.6;
+}
