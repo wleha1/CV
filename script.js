@@ -33,11 +33,11 @@ class Blob {
         easing: "linear"
       },
       complete: () => {
-        this.move(); // начинаем движение после завершения intro анимации
+        this.move();
       }
     });
   }
-  // expand blob animation
+ 
   expand() {
     return new Promise((resolve, reject) => {
       let halfway = false;
@@ -61,28 +61,28 @@ class Blob {
     this.layers.forEach(layer => {
       anime({
         targets: layer,
-        duration: 4000, // длительность одной итерации
-        loop: true, // зацикленное движение
-        easing: "easeInOutSine", // плавное движение
+        duration: 4000, 
+        loop: true, 
+        easing: "easeInOutSine", 
         translateX: [
-          { value: anime.random(-5, 5), duration: anime.random(5000, 5000), easing: "easeInOutSine" }, // случайное движение влево/вправ
-          { value: anime.random(-5, 5), duration: anime.random(5000, 5000), easing: "easeInOutSine" } // случайное движение влево/вправ
+          { value: anime.random(-5, 5), duration: anime.random(5000, 5000), easing: "easeInOutSine" }, 
+          { value: anime.random(-5, 5), duration: anime.random(5000, 5000), easing: "easeInOutSine" } 
         ],
         translateY: [
-          { value: anime.random(-5, 5), duration: anime.random(5000, 5000), easing: "easeInOutSine" }, // случайное движение вверх/вниз
-          { value: anime.random(-5, 5), duration: anime.random(5000, 5000), easing: "easeInOutSine" } // случайное движение вверх/вниз
+          { value: anime.random(-5, 5), duration: anime.random(5000, 5000), easing: "easeInOutSine" }, 
+          { value: anime.random(-5, 5), duration: anime.random(5000, 5000), easing: "easeInOutSine" } 
         ],
-        direction: "alternate", // плавный возврат в начальное положение
-        loop: true, // зацикленное движение
+        direction: "alternate", 
+        loop: true, 
         begin: function(anim) {
-          // Для более плавного начала, убираем рывки при первом запуске
+          
           layer.style.transform = 'translateX(0) translateY(0)';
         }
       });
     });
   }
 
-  // collapse blob animation
+
   collapse() {
     return new Promise((resolve, reject) => {
       let halfway = false;
@@ -101,7 +101,7 @@ class Blob {
       });
     });
   }
-  // hide blob animation
+
   hide() {
     anime.remove(this.layers);
     anime({
@@ -118,7 +118,7 @@ class Blob {
       }
     });
   }
-  // show blob animation
+
   show() {
     setTimeout(() => this.intro(), 400);
   }
@@ -129,14 +129,14 @@ window.Blob = Blob;
 const DOM = {};
 let blobs = [];
 
-// do intro animation for all
+
 Array.from($("svg.scene g")).forEach(el => {
   const blob = new Blob(el);
   blobs.push(blob);
   blob.intro();
 });
 
-// open according blob on link click
+
 DOM.links = Array.from($(".menu > .menu__item"));
 
 DOM.links.forEach((link, pos) => {
@@ -146,24 +146,24 @@ DOM.links.forEach((link, pos) => {
   });
 });
 
-// close blob on close click
+
 $(".content-close").click(() => close());
 
 let current;
 
-// open function
+
 const open = pos => {
 
-  // set current blob
+
   current = pos;
   const currentBlob = blobs[current];
 
   currentBlob.expand();
   
-  // add class "gone" to menu to animate :before's 
+
   $(".menu").addClass("gone");
 
-  // fade menu letters out
+
   $(".menu__item").each(function(){
     $(this).letterFade({
       fade: "out",
@@ -172,39 +172,39 @@ const open = pos => {
     });
   });
   
-  // show content
+ 
   setTimeout(function(){
     $(".content").show(0);
     $(".content-close").fadeIn();
     
-    // show according content
+ 
     $(".content__inner").eq(pos).show(0);
     
-    // fade letters of title in
+ 
     $(".content__inner:visible .content__title").letterFade({
       fade: "in",
       duration: 30,
       delay: 0
     }, function(){
-      // fade content in finally
+  
       $(".content__sub").delay(200).fadeIn();
     });
   }, 1200);
 
-  // trigger hide blob animation
+
   blobs.filter(el => el != currentBlob).forEach(blob => blob.hide());
 };
 
-// close function
+
 const close = () => {
   
-  // fade letters of title out
+
   $(".content__inner:visible .content__title").letterFade({
     fade: "out",
     duration: 30,
     delay: 0
   }, function(){
-    // fade content out finally
+  
     $(".content, .content__sub, .content__inner, .content-close").fadeOut();
   });
   
@@ -224,7 +224,7 @@ const close = () => {
   blobs.filter(el => el != blobs[current]).forEach(blob => blob.show());
 };
 
-// LETTERFADE.JS PLUGIN
+
 
 $.fn.letterFade = function(options, complete) {
   var ident = Math.floor(Math.random() * 1000000);
@@ -256,7 +256,7 @@ $.fn.letterFade = function(options, complete) {
     }
 
     $.each(letters, function(index, value) {
-      if (value.match(/\S/)) {  // Обрабатываем только не пробельные символы
+      if (value.match(/\S/)) {  
         newstring +=
           '<span style="opacity: ' +
           opacity +
@@ -266,7 +266,7 @@ $.fn.letterFade = function(options, complete) {
           value +
           "</span>";
       } else {
-        // Для пробела просто добавляем его как есть
+        
         newstring += value;
       }
     });
